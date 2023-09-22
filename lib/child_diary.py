@@ -10,12 +10,19 @@ class Diary:
 
 
     def to_dict(self):
+        final_dicts = []
         for i in self.all_entries:
             entry_dict = {
                 "Date": i.date,
                 "Diary Entry": i.description,
             }
-        return entry_dict
+            if i.task:
+                entry_dict["To Do's"] = list(i.task.values())
+            if i.contact:
+                entry_dict["Contacts"] = i.contact
+            final_dicts.append(entry_dict)
+        return final_dicts
+    
 
     def search_by_title(self, searched_date):
         for i in self.all_entries:
